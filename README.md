@@ -7,7 +7,10 @@ This project includes [node-exporter](https://github.com/prometheus/node_exporte
 ## Install
 First create a `.env` file from [.env.dist](.env.dist).
 - `HOST_NAME` the name of the host where promstack-exporters is installed. This will be available as a label in scraped data. 
-- `ENV` the env of the host where promstack-exporters is installed. This will be available as a label in promtail data. 
+- `ENV` the env of the host where promstack-exporters is installed. This will be available as a label in promtail data.
+- `NODE_EXPORTER_PORT` node-exporter expose metrics for Prometheus at this port.
+- `CADVISOR_PORT` Cadvisor expose metrics for Prometheus at this port.
+- `NGINX_EXPORTER_PORT` nginx-exporter expose metrics for Prometheus at this port.
 - `NGINX_SCRAPE_URI` the nginx stub_status URL, see [nginx-exporter section](#nginx-exporter)
 - `DOCKER_HOST_INTERNAL_IP` the internal IP of docker host, used by nginx-exporter to access host's nginx stub_page.
 - `LOKI_EXTERNAL_URL` Loki URL to be called by Promtail, see [Promtail](#promtail) bellow.  
@@ -31,19 +34,20 @@ docker-compose up -d
 ## node-exporter
 > Prometheus exporter for hardware and OS metrics exposed by *NIX kernels, written in Go with pluggable metric collectors.
 
-Metrics are scraped by Prometheus, container needs to be accessible by Prometheus.
+Metrics are scraped by Prometheus, container needs to be accessible by Prometheus at port `NODE_EXPORTER_PORT`.
 
 See [node-exporter documentation](https://github.com/prometheus/node_exporter).
 
 ## Cadvisor
 Cadvisor monitor containers, like docker containers.  
-Metrics are scraped by Prometheus, container needs to be accessible by Prometheus.   
+Metrics are scraped by Prometheus, container needs to be accessible by Prometheus at port `CADVISOR_PORT`.   
 
 See [Cadvisor documentation](https://github.com/google/cadvisor).  
   
 ## nginx-exporter
 nginx-exporter uses [nginx status page](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html#stub_status) to get data about nginx usage. Those data can then be scraped by Prometheus.
-Metrics are scraped by Prometheus, container needs to be accessible by Prometheus.   
+Metrics are scraped by Prometheus, container needs to be accessible by Prometheus at port `NGINX_EXPORTER_PORT`.
+
 Nginx stub_status page can be set with the `NGINX_SCRAPE_URI` environment variable. To monitor host's nginx instance, nginx-exporter container have to access this URI on host network by adding this docker-compose configuration:  
 ```yaml
 # docker-compose.yml

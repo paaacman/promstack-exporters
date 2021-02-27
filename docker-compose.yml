@@ -15,7 +15,8 @@ services:
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
       - '--no-collector.rapl'
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - ${NODE_EXPORTER_PORT:-9100}:9100
     labels:
       org.label-schema.group: "monitoring"
       host.name: "${HOST_NAME}"
@@ -39,8 +40,8 @@ services:
       - /dev/kmsg:/dev/kmsg
     security_opt:
       - no-new-privileges:true
-    expose:
-      - 8080
+    ports:
+      - ${CADVISOR_PORT:-8080}:8080
     labels:
       org.label-schema.group: "monitoring"
       host.name: "${HOST_NAME}"
@@ -52,8 +53,8 @@ services:
       - '-nginx.scrape-uri=${NGINX_SCRAPE_URI:-http://localhost:8087/nginx_status}'
       - '-prometheus.const-labels=host=${HOST_NAME}'
     restart: unless-stopped
-    expose:
-      - 9113
+    ports:
+      - ${NGINX_EXPORTER_PORT}:9113
     extra_hosts:
       - "host.docker.internal:${DOCKER_HOST_INTERNAL_IP}"
     labels:
