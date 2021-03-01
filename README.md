@@ -73,6 +73,15 @@ Adapt the `scrape_configs` in [promtail.yml](promtail/promtail.yml) to your need
   
 See [Promtail documentation](https://grafana.com/docs/loki/latest/clients/promtail/) for more information.
 
+You can adapt or remove promtail the second scrape_config, depending on your needs.
+```yml
+# promtail/promtail.yml
+...
+- job_name: logs
+  static_configs:
+...
+```
+
 ### Backup
 To backup Promtail current state to `/tmp/promtail_backup`, you can backup `promtail_data` volume like this:
 ```bash

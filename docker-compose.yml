@@ -69,6 +69,9 @@ services:
       - LOKI_EXTERNAL_URL
       - LOKI_USERNAME
       - LOKI_PASSWORD
+      - APP_LOG_SELECTOR
+      - APP_MATCH_REGEX
+      - APP_MATCH_LABELS
     volumes:
       - ./promtail/promtail.yml:/etc/promtail/promtail.yml
       - promtail_data:/promtail/
