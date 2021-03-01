@@ -76,6 +76,7 @@ services:
     command:
       - '-config.file=/etc/promtail/promtail.yml'
       - '-config.expand-env=true'
+    restart: unless-stopped
     labels:
       group: "monitoring"
       host.name: "${HOST_NAME}"
