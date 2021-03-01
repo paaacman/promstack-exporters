@@ -4,3 +4,5 @@
 .idea/
 /cadvisor_debug
 .env
+/promtail/scrapes/*.yml
+/promtail/scrapes/*.json

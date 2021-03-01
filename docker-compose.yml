@@ -73,6 +73,7 @@ services:
       - ./promtail/promtail.yml:/etc/promtail/promtail.yml
       - promtail_data:/promtail/
       - /var/log:/var/log:ro
+      - ${APP_LOG_DIR}:/app/log:ro # Remove this line if there is no app logs to read
     command:
       - '-config.file=/etc/promtail/promtail.yml'
       - '-config.expand-env=true'
