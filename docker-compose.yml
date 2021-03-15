@@ -18,7 +18,7 @@ services:
     ports:
       - ${NODE_EXPORTER_PORT:-9100}:9100
     labels:
-      org.label-schema.group: "monitoring"
+      group: "monitoring"
       host.name: "${HOST_NAME}"
 
   cadvisor:
@@ -43,7 +43,7 @@ services:
     ports:
       - ${CADVISOR_PORT:-8080}:8080
     labels:
-      org.label-schema.group: "monitoring"
+      group: "monitoring"
       host.name: "${HOST_NAME}"
 
   nginxexporter:
@@ -58,7 +58,7 @@ services:
     extra_hosts:
       - "host.docker.internal:${DOCKER_HOST_INTERNAL_IP}"
     labels:
-      org.label-schema.group: "monitoring"
+      group: "monitoring"
       host.name: "${HOST_NAME}"
 
   promtail:
